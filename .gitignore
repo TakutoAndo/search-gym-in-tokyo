@@ -1,0 +1,51 @@
+# Bundler
+/.bundle
+/vendor/bundle
+
+# Logs
+/log/*
+!/log/.keep
+
+# Tmp
+/tmp/*
+!/tmp/.keep
+
+# Storage
+/storage/*
+!/storage/.keep
+
+# Assets
+/public/assets
+/public/packs
+/public/packs-test
+/app/assets/builds/
+
+# Config secrets
+/config/master.key
+/config/credentials/*.key
+
+# Environment
+.env
+.env.*
+
+# Database
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-shm
+/db/*.sqlite3-wal
+
+# System / editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Docker volumes
+postgres-data/
+
+# Internal docs (not for public)
+docs/
+
+# Claude Code internal files
+.claude/
