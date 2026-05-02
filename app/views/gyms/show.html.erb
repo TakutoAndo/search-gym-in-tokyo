@@ -1,0 +1,64 @@
+<div class="w-full max-w-3xl">
+  <%= link_to "← 一覧に戻る", gyms_path, class: "text-blue-600 hover:underline text-sm" %>
+
+  <div class="bg-white rounded-lg shadow p-6 mt-4 mb-4">
+    <h1 class="text-2xl font-bold mb-2"><%= @gym.name %></h1>
+    <p class="text-sm text-gray-500 mb-6"><%= @gym.ward %></p>
+
+    <table class="text-sm w-full mb-6">
+      <tbody>
+        <% if @gym.address.present? %>
+          <tr class="border-b">
+            <td class="py-2 text-gray-500 w-28">住所</td>
+            <td class="py-2"><%= @gym.address %></td>
+          </tr>
+        <% end %>
+        <% if @gym.nearest_station.present? %>
+          <tr class="border-b">
+            <td class="py-2 text-gray-500">最寄り駅</td>
+            <td class="py-2"><%= @gym.nearest_station %>駅</td>
+          </tr>
+        <% end %>
+        <% if @gym.phone.present? %>
+          <tr class="border-b">
+            <td class="py-2 text-gray-500">電話番号</td>
+            <td class="py-2"><%= @gym.phone %></td>
+          </tr>
+        <% end %>
+        <% if @gym.notes.present? %>
+          <tr>
+            <td class="py-2 text-gray-500">備考</td>
+            <td class="py-2"><%= @gym.notes %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @gym.website.present? %>
+      <div class="border border-gray-200 rounded-lg p-4 mb-3">
+        <p class="text-sm text-gray-600 mb-3">施設の公式サイトで最新の開放日時・予約方法をご確認ください。</p>
+        <%= link_to "公式サイトを見る →", @gym.website,
+            target: "_blank", rel: "noopener noreferrer",
+            class: "inline-block bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 font-medium" %>
+      </div>
+      <% if @gym.reservation_url.present? %>
+        <div class="border border-gray-200 rounded-lg p-4">
+          <p class="text-sm text-gray-600 mb-3">区の予約ポータルから空き状況を確認することもできます。</p>
+          <%= link_to "区の予約ポータルを見る →", @gym.reservation_url,
+              target: "_blank", rel: "noopener noreferrer",
+              class: "inline-block border-2 border-blue-600 text-blue-600 text-sm px-4 py-2 rounded hover:bg-blue-50 font-medium" %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="border border-gray-200 rounded-lg p-4">
+        <p class="text-sm text-gray-700 font-medium mb-1">この施設の公式サイトは登録されていません。</p>
+        <p class="text-sm text-gray-600 mb-3">開放日時・予約方法は施設へ直接お問い合わせください。</p>
+        <% if @gym.reservation_url.present? %>
+          <%= link_to "区の予約ポータルを見る →", @gym.reservation_url,
+              target: "_blank", rel: "noopener noreferrer",
+              class: "inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700 font-medium" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

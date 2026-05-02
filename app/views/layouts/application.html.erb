@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "東京バドミントン体育館検索" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <header class="fixed top-0 left-0 right-0 bg-white shadow z-10">
+      <div class="container mx-auto px-5 py-3 flex justify-between items-center">
+        <%= link_to "東京バドミントン体育館検索", root_path, class: "font-bold text-lg text-blue-700" %>
+        <%= link_to "管理画面", admin_gyms_path, class: "text-sm text-gray-500 hover:text-gray-700" %>
+      </div>
+    </header>
+    <main class="container mx-auto mt-16 px-5 py-6">
+      <% if notice %>
+        <div class="bg-green-100 text-green-800 px-4 py-3 rounded mb-4"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="bg-red-100 text-red-800 px-4 py-3 rounded mb-4"><%= alert %></div>
+      <% end %>
+      <%= yield %>
+    </main>
+    <footer class="border-t border-gray-200 mt-12 py-6">
+      <div class="container mx-auto px-5 text-xs text-gray-400 space-y-1">
+        <p>最寄り駅情報：<a href="https://express.heartrails.com/" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-600">HeartRails Express</a> を使用</p>
+        <p>出典：「位置参照情報ダウンロードサービス」（国土交通省）を加工して作成</p>
+      </div>
+    </footer>
+  </body>
+</html>

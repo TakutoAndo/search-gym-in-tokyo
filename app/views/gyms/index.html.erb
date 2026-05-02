@@ -1,0 +1,63 @@
+<div class="w-full">
+  <h1 class="text-2xl font-bold mb-6">体育館を探す</h1>
+
+  <%= form_with url: gyms_path, method: :get, class: "bg-white p-6 rounded-lg shadow mb-8" do |f| %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div class="md:col-span-2">
+        <%= f.label :keyword, "キーワード（施設名・住所・最寄り駅）", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :keyword, value: params[:keyword],
+            placeholder: "例: 新宿、代々木、〇〇スポーツセンター",
+            class: "w-full border border-gray-300 rounded px-3 py-2" %>
+      </div>
+
+      <div>
+        <%= f.label :ward, "区", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.select :ward, [["すべて", ""]] + @wards.map { |w| [w, w] },
+            { selected: params[:ward] },
+            class: "w-full border border-gray-300 rounded px-3 py-2" %>
+      </div>
+
+      <div class="flex items-end pb-2">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" name="has_website" value="1"
+                 <%= "checked" if params[:has_website].present? %>>
+          <span class="text-sm font-medium text-gray-700">公式サイトがある施設のみ</span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="mt-4 flex gap-2">
+      <%= f.submit "検索", class: "bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 cursor-pointer" %>
+      <%= link_to "リセット", gyms_path, class: "text-gray-600 px-4 py-2 rounded border hover:bg-gray-100" %>
+    </div>
+  <% end %>
+
+  <p class="text-gray-600 mb-4"><%= @gyms.count %>件の施設が見つかりました</p>
+
+  <% if @gyms.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% @gyms.each do |gym| %>
+        <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
+          <div class="flex justify-between items-start mb-2">
+            <h2 class="font-bold text-lg leading-snug"><%= gym.name %></h2>
+            <% if gym.website.present? %>
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded ml-2 whitespace-nowrap">公式サイトあり</span>
+            <% end %>
+          </div>
+          <p class="text-sm text-gray-500 mb-1"><%= gym.ward %></p>
+          <p class="text-sm text-gray-600 mb-1"><%= gym.address %></p>
+          <% if gym.nearest_station.present? %>
+            <p class="text-sm text-gray-600"><%= gym.nearest_station %>駅</p>
+          <% end %>
+          <div class="mt-3">
+            <%= link_to "詳細を見る →", gym_path(gym), class: "inline-block bg-blue-600 text-white text-sm px-4 py-1.5 rounded hover:bg-blue-700" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-500 text-center py-16">条件に合う施設が見つかりませんでした。</p>
+  <% end %>
+</div>
