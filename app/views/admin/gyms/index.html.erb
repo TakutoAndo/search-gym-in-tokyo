@@ -1,0 +1,47 @@
+<div class="w-full">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">施設管理</h1>
+    <%= link_to "+ 新規登録", new_admin_gym_path, class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" %>
+  </div>
+
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-4 py-3 text-left text-gray-600 font-medium">施設名</th>
+          <th class="px-4 py-3 text-left text-gray-600 font-medium">区</th>
+          <th class="px-4 py-3 text-left text-gray-600 font-medium">最寄り駅</th>
+          <th class="px-4 py-3 text-left text-gray-600 font-medium">公式サイト</th>
+          <th class="px-4 py-3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @gyms.each do |gym| %>
+          <tr class="border-t hover:bg-gray-50">
+            <td class="px-4 py-3 font-medium"><%= gym.name %></td>
+            <td class="px-4 py-3 text-gray-600"><%= gym.ward %></td>
+            <td class="px-4 py-3 text-gray-600"><%= gym.nearest_station.presence || "<span class='text-gray-300'>−</span>".html_safe %></td>
+            <td class="px-4 py-3">
+              <% if gym.website.present? %>
+                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">あり</span>
+              <% else %>
+                <span class="text-xs text-gray-400">−</span>
+              <% end %>
+            </td>
+            <td class="px-4 py-3 text-right space-x-3">
+              <%= link_to "詳細", admin_gym_path(gym), class: "text-blue-600 hover:underline" %>
+              <%= link_to "編集", edit_admin_gym_path(gym), class: "text-yellow-600 hover:underline" %>
+              <%= link_to "削除", admin_gym_path(gym),
+                  data: { turbo_method: :delete, turbo_confirm: "「#{gym.name}」を削除しますか？" },
+                  class: "text-red-600 hover:underline" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @gyms.empty? %>
+      <p class="text-gray-500 text-center py-12">施設が登録されていません。</p>
+    <% end %>
+  </div>
+</div>

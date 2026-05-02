@@ -1,0 +1,66 @@
+<%= form_with model: [:admin, @gym], class: "space-y-4" do |f| %>
+  <% if @gym.errors.any? %>
+    <div class="bg-red-100 text-red-800 px-4 py-3 rounded">
+      <ul class="list-disc list-inside text-sm">
+        <% @gym.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "施設名 *", class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= f.text_field :name, class: "w-full border border-gray-300 rounded px-3 py-2" %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= f.label :ward, "区", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :ward, placeholder: "例: 新宿区", class: "w-full border border-gray-300 rounded px-3 py-2" %>
+    </div>
+    <div>
+      <%= f.label :nearest_station, "最寄り駅", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :nearest_station, placeholder: "例: 新宿", class: "w-full border border-gray-300 rounded px-3 py-2" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所", class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= f.text_field :address, class: "w-full border border-gray-300 rounded px-3 py-2" %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= f.label :postal_code, "郵便番号", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :postal_code, placeholder: "例: 1760002", class: "w-full border border-gray-300 rounded px-3 py-2" %>
+    </div>
+    <div>
+      <%= f.label :phone, "電話番号", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.telephone_field :phone, class: "w-full border border-gray-300 rounded px-3 py-2" %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= f.label :website, "公式サイトURL", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.url_field :website, placeholder: "https://...", class: "w-full border border-gray-300 rounded px-3 py-2" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :reservation_url, "区の予約ポータルURL", class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <p class="text-xs text-gray-500 mb-1">各区の施設予約システムのURL。Rakeタスク（rails gym:update_reservation_urls）で一括更新可能。</p>
+    <%= f.url_field :reservation_url, placeholder: "https://...", class: "w-full border border-gray-300 rounded px-3 py-2" %>
+  </div>
+
+  <div>
+    <%= f.label :notes, "備考", class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= f.text_area :notes, rows: 3, class: "w-full border border-gray-300 rounded px-3 py-2" %>
+  </div>
+
+  <div class="flex gap-2 pt-2">
+    <%= f.submit class: "bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 cursor-pointer" %>
+    <%= link_to "キャンセル", admin_gyms_path, class: "text-gray-600 px-4 py-2 rounded border hover:bg-gray-100" %>
+  </div>
+<% end %>
