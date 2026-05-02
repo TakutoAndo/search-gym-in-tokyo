@@ -25,7 +25,7 @@ development:
   database: search_gym_in_tokyo_development
   host: db
   username: postgres
-  password: password
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "password") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -35,7 +35,7 @@ test:
   database: search_gym_in_tokyo_test
   host: db
   username: postgres
-  password: password
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "password") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

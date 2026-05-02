@@ -5,7 +5,7 @@ services:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -20,7 +20,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgres://postgres:password@db:5432/search_gym_in_tokyo_development
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-password}@db:5432/search_gym_in_tokyo_development
       RAILS_ENV: development
     depends_on:
       - db
